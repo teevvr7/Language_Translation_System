@@ -1,0 +1,33 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.pytest_cache/
+
+# Technical Assessment & Binary Documents (Ignored as requested)
+*.pdf
+docs/*.pdf
+
+# Environment & Secret Configurations
+.env
+.env.*
+!.env.example
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.incomplete
+.locks/
+scratch/

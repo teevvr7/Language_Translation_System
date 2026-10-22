@@ -1,0 +1,19 @@
+# FastAPI Web Application & Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.5.0
+jinja2>=3.1.2
+python-multipart>=0.0.9
+
+# Deep Learning & NLP
+torch>=2.2.0
+transformers>=4.40.0
+sentencepiece>=0.2.0
+accelerate>=0.29.0
+langdetect>=1.0.9
+sacrebleu>=2.4.0
+
+# Testing & Utilities
+pytest>=8.0.0
+requests>=2.31.0
+httpx>=0.27.0

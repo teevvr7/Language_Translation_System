@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Translation Studio | Enterprise Multilingual Translation Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <!-- Top Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m5 8 6 6"/>
+            <path d="m4 14 6-6 2-3"/>
+            <path d="M2 5h12"/>
+            <path d="M7 2h1"/>
+            <path d="m22 22-5-10-5 10"/>
+            <path d="M14 18h6"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Neural Translation Studio</h1>
+          <p class="brand-subtitle">Multilingual Neural Machine Translation Engine</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="status-indicator" id="engine-status-pill">
+          <span class="status-dot"></span>
+          <span id="engine-status-text">Checking Engine...</span>
+        </div>
+        <a href="/docs" target="_blank" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          REST API Docs
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <!-- Tab Navigation -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="studio-tab">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        Translation Studio
+      </button>
+      <button class="tab-btn" data-tab="samples-tab">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <path d="m9 15 2 2 4-4"/>
+        </svg>
+        Curated Scenarios
+      </button>
+      <button class="tab-btn" data-tab="glossary-tab">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Entity Preservation Glossary
+      </button>
+      <button class="tab-btn" data-tab="architecture-tab">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+          <line x1="6" y1="6" x2="6.01" y2="6"/>
+          <line x1="6" y1="18" x2="6.01" y2="18"/>
+        </svg>
+        Architecture & Trace
+      </button>
+    </div>
+
+    <!-- TAB 1: Translation Studio -->
+    <section id="studio-tab" class="tab-panel active">
+      <!-- Quick Sample Scenarios Bar -->
+      <div class="samples-quickbar">
+        <span class="quickbar-label">⚡ Quick Presets:</span>
+        <div class="quickbar-chips" id="quick-preset-chips">
+          <button class="chip" data-sample="sample-1">General Billing</button>
+          <button class="chip" data-sample="sample-2">Urgent Outage 😡</button>
+          <button class="chip" data-sample="sample-4">Slang & Emoji 😭</button>
+          <button class="chip" data-sample="sample-5">Spelling Typos</button>
+          <button class="chip" data-sample="sample-6">IDs & Error E104</button>
+          <button class="chip" data-sample="sample-7">Tamil (tam_Taml)</button>
+          <button class="chip" data-sample="sample-8">Franglais Mix</button>
+        </div>
+      </div>
+
+      <!-- Translation Dual Workspace -->
+      <div class="workspace-grid">
+        <!-- Left: Source Panel -->
+        <div class="card panel-card">
+          <div class="panel-header">
+            <div class="lang-selector-group">
+              <label for="src-lang-select">Source Language:</label>
+              <select id="src-lang-select" class="custom-select">
+                <option value="auto">⚡ Auto-Detect (Script & N-Gram)</option>
+                <option value="English" selected>English (eng_Latn)</option>
+                <option value="French">French (fra_Latn)</option>
+                <option value="Spanish">Spanish (spa_Latn)</option>
+                <option value="Tamil">Tamil (tam_Taml)</option>
+                <option value="German">German (deu_Latn)</option>
+                <option value="Hindi">Hindi (hin_Deva)</option>
+              </select>
+            </div>
+            <div class="header-actions">
+              <span id="detection-badge" class="badge badge-subtle">Auto Mode Ready</span>
+              <button id="clear-btn" class="btn btn-icon" title="Clear text">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18"/>
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <textarea id="source-input" class="translation-textarea" placeholder="Type or paste customer support tickets, chat inquiries, error reports, or email text... (UTF-8, Unicode, Emojis, IDs preserved)"></textarea>
+          </div>
+
+          <div class="panel-footer">
+            <div class="counter-group">
+              <span id="src-char-count">0 characters</span>
+              <span class="divider">|</span>
+              <span id="src-word-count">0 words</span>
+            </div>
+            <button id="detect-lang-btn" class="btn btn-secondary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              Detect Language
+            </button>
+          </div>
+        </div>
+
+        <!-- Center: Swap & Translate Trigger Bar (Mobile / Responsive) -->
+        <div class="swap-divider">
+          <button id="swap-lang-btn" class="btn btn-circle" title="Swap Languages">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m16 3 4 4-4 4"/>
+              <path d="M20 7H4"/>
+              <path d="m8 21-4-4 4-4"/>
+              <path d="M4 17h16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Right: Target Panel -->
+        <div class="card panel-card">
+          <div class="panel-header">
+            <div class="lang-selector-group">
+              <label for="tgt-lang-select">Target Language:</label>
+              <select id="tgt-lang-select" class="custom-select">
+                <option value="French" selected>French (fra_Latn)</option>
+                <option value="English">English (eng_Latn)</option>
+                <option value="Spanish">Spanish (spa_Latn)</option>
+                <option value="Tamil">Tamil (tam_Taml)</option>
+                <option value="German">German (deu_Latn)</option>
+                <option value="Hindi">Hindi (hin_Deva)</option>
+              </select>
+            </div>
+            <div class="header-actions">
+              <button id="copy-btn" class="btn btn-icon" title="Copy Translation">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div id="target-output" class="translation-output placeholder-state">
+              Translated output will appear here with technical terms, error codes, and URLs verified...
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="metrics-group" id="metrics-bar">
+              <span class="metric-pill" id="latency-metric">Latency: —</span>
+              <span class="metric-pill" id="tokens-metric">Tokens: —</span>
+            </div>
+            <div id="terms-audit-badge" class="badge badge-neutral">No entities detected</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Engine Controls & Execution Action Bar -->
+      <div class="card controls-card">
+        <div class="controls-grid">
+          <div class="control-item">
+            <label class="toggle-control">
+              <input type="checkbox" id="protect-terms-toggle" checked>
+              <span class="toggle-slider"></span>
+              <span class="toggle-label">
+                <strong>Intelligent Entity Preservation</strong>
+                <span class="toggle-desc">Protects URLs, emails, error codes (E104), order IDs (ORD-*), and product terms</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="control-item slider-control">
+            <div class="slider-header">
+              <label for="num-beams-slider">Beam Search Size:</label>
+              <span id="beam-val" class="slider-val">4 beams</span>
+            </div>
+            <input type="range" id="num-beams-slider" min="1" max="6" value="4" step="1">
+            <span class="slider-hint">1 = Greedy (Faster) | 4 = Standard (Balanced fluency)</span>
+          </div>
+
+          <div class="control-item slider-control">
+            <div class="slider-header">
+              <label for="max-tokens-slider">Max Output Tokens:</label>
+              <span id="max-tokens-val" class="slider-val">256 tokens</span>
+            </div>
+            <input type="range" id="max-tokens-slider" min="32" max="512" value="256" step="32">
+            <span class="slider-hint">Caps autoregressive decoding length</span>
+          </div>
+
+          <div class="control-item action-control">
+            <button id="translate-btn" class="btn btn-primary btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <span>Translate Message</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Diagnostic Trace & Warning Accordion -->
+        <div id="diagnostics-panel" class="diagnostics-box hidden">
+          <div class="diagnostics-header">
+            <div class="diag-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <span>Pipeline Trace & Entity Verification</span>
+            </div>
+            <button id="dismiss-diag-btn" class="btn-text">Dismiss</button>
+          </div>
+          <div class="diagnostics-body" id="diagnostics-content"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Curated Scenarios Suite -->
+    <section id="samples-tab" class="tab-panel">
+      <div class="card intro-card">
+        <h2>Representative Customer-Support Test Scenarios</h2>
+        <p>Curated test cases reflecting real-world customer support challenges: polite requests, urgent outage escalations, typographical errors, chat slang, technical error codes, code-switching, and Indian language translation.</p>
+      </div>
+
+      <div class="scenarios-grid" id="scenarios-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 3: Entity Preservation Glossary -->
+    <section id="glossary-tab" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2>Domain Entity & Technical Glossary</h2>
+            <p>Words and product names listed here are guaranteed to remain unaltered during translation via regex matching and placeholder protection.</p>
+          </div>
+          <button id="save-glossary-btn" class="btn btn-secondary">
+            Save Glossary Changes
+          </button>
+        </div>
+
+        <div class="glossary-add-bar">
+          <input type="text" id="new-term-input" class="custom-input" placeholder="Enter term or product name (e.g. PayGate, CloudSync Pro)...">
+          <button id="add-term-btn" class="btn btn-primary">Add Term</button>
+        </div>
+
+        <div class="glossary-tags-container" id="glossary-tags">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="info-callout">
+          <h4>Automatic Pattern Recognition (Active by Default)</h4>
+          <ul>
+            <li><strong>URLs:</strong> <code>https://...</code>, <code>http://...</code></li>
+            <li><strong>Email Addresses:</strong> <code>user@example.com</code></li>
+            <li><strong>Technical Identifiers:</strong> <code>ORD-2026-8841</code>, <code>ACC_99201</code>, <code>ERR-502</code>, <code>TKT-492</code>, <code>#49201</code></li>
+            <li><strong>Error Codes:</strong> <code>E104</code>, <code>E500</code>, <code>E404</code></li>
+            <li><strong>Software Versions:</strong> <code>v2.4.1</code>, <code>v1.0</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Architecture & Trace -->
+    <section id="architecture-tab" class="tab-panel">
+      <div class="card">
+        <h2>System Architecture & NLLB-200 Transformer Flow</h2>
+        <p>This translation system implements an end-to-end Sequence-to-Sequence pipeline leveraging the official <code>facebook/nllb-200-distilled-600M</code> architecture with 200-language FLORES subword representations.</p>
+
+        <div class="arch-flowchart">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Input Validation & Unicode NFC</h4>
+              <p>Non-destructive normalization preserves emojis, punctuation, casing, and error codes.</p>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Language Identification & Script Check</h4>
+              <p>Tamil Unicode (<code>U+0B80–U+0BFF</code>) script check + deterministic character n-grams with noise stripping.</p>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Technical Entity Span Extraction</h4>
+              <p>Matches glossary terms, error codes (<code>E104</code>), order IDs (<code>ORD-*</code>), and URLs.</p>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Encoder–Decoder Neural MT</h4>
+              <p>12-layer Transformer Encoder & 12-layer Decoder with 16 Multi-Head Attention heads and <code>forced_bos_token_id</code>.</p>
+            </div>
+          </div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Entity Verification & Fallback Audit</h4>
+              <p>Verifies verbatim entity survival. Runs placeholder-masked generation if any entity was altered.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hardware-specs-box">
+          <h3>Runtime & Model Specifications</h3>
+          <div class="specs-grid" id="specs-grid">
+            <div class="spec-card">
+              <span class="spec-label">Model Checkpoint</span>
+              <span class="spec-val">facebook/nllb-200-distilled-600M</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Architecture Class</span>
+              <span class="spec-val">M2M100ForConditionalGeneration</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Encoder / Decoder Layers</span>
+              <span class="spec-val">12 Layers / 12 Layers (d_model=1024)</span>
+            </div>
+            <div class="spec-card">
+              <span class="spec-label">Vocabulary Size</span>
+              <span class="spec-val">256,206 SentencePiece Unigrams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; Multilingual Neural Translation System &bull; Fast, High-Precision Machine Translation</p>
+      <div class="footer-links">
+        <a href="/docs" target="_blank">Swagger OpenAPI</a>
+        <a href="/redoc" target="_blank">ReDoc</a>
+        <a href="/api/v1/health" target="_blank">Health API</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
